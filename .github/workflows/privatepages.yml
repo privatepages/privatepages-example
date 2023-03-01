@@ -1,0 +1,27 @@
+---
+
+name: Publish in privatepagese
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+
+  publish:
+    runs-on: ubuntu-latest
+    environment: privatepages
+    defaults:
+      run:
+        working-directory: .
+    steps:
+    -
+      uses: actions/checkout@v3
+    -
+      name: Upload html static to privatepages
+      uses: privatepages/upload-action@v0.1-beta
+      with:
+        name: example-artifact
+        path: test-data/
+        privatepages-url: ${{ vars.PRIVATEPAGES_URL }}
+        privatepages-token: ${{ secrets.PRIVATEPAGES_TOKEN }}
